@@ -3,10 +3,10 @@ const Movie = require("./movie.model");
 
 //CRUD function - then use in app.js.
 //CREATE - SAME AS INSERT INTO
-exports.addMovie = async (movieObj) => {
+exports.addMovie = async (id, movieObj) => {
   try {
-    await Movie.sync(); //sync creates the table if it doesn't exist.
-    await Movie.create(movieObj); //VSC auto-suggest shows what you can have. look simialr then check docs.
+    await this[id].sync(); //sync creates the table if it doesn't exist.
+    await this[id].create(movieObj); //VSC auto-suggest shows what you can have. look simialr then check docs.
     console.log("Movie added to database");
   } catch (error) {
     console.log(error);
@@ -14,9 +14,9 @@ exports.addMovie = async (movieObj) => {
 };
 
 //READ - SAME AS SELECT * FROM ..
-exports.listMovies = async () => {
+exports.listMovies = async (id) => {
   try {
-    const movieList = await Movie.findAll(); //variable where funciton works
+    const movieList = await [id].findAll(); //variable where funciton works
     console.log("All Movies:", JSON.stringify(movieList, null, 2)); //logs variable and JSOn turns into string with only necassary info.
   } catch (error) {
     console.log(error);
@@ -25,13 +25,14 @@ exports.listMovies = async () => {
 
 //UPDATE
 exports.updateMovie = async (
+  id,
   filterField,
   filterValue,
   updateField,
   updateValue
 ) => {
   try {
-    await Movie.update(
+    await [id].update(
       { [updateField]: updateValue },
       { where: { [filterField]: filterValue } }
     );
@@ -42,9 +43,9 @@ exports.updateMovie = async (
 };
 
 //DELETE
-exports.deleteMovie = async (movieObj) => {
+exports.deleteMovie = async (id, movieObj) => {
   try {
-    await Movie.destroy({ where: { title: movieObj.title } });
+    await [id].destroy({ where: { title: movieObj.title } });
     console.log("Movie removed from database");
   } catch (error) {
     console.log(error);
