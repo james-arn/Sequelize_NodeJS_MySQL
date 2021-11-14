@@ -9,7 +9,7 @@ const {
 
 const App = () => {
   let identifier = process.argv[2];
-  let movieYargs = { title: yargs.argv.title, actor: yargs.argv.actor };
+  let movieYargs = { title: yargs.argv.title, rating: yargs.argv.rating };
   //identifier - movies or actor table
   if (identifier == "Actor") {
     movieYargs = { actor: yargs.argv.actor };

@@ -1,22 +1,22 @@
-const Movie = require("./movie.model");
+const { Movie, Actor } = require("./movie.model");
 // this is where it massively differs from mongo.db. we need to create the table first and tell it to do this.
 
 //CRUD function - then use in app.js.
 //CREATE - SAME AS INSERT INTO
 exports.addMovie = async (id, movieObj) => {
   try {
-    await this[id].sync(); //sync creates the table if it doesn't exist.
-    await this[id].create(movieObj); //VSC auto-suggest shows what you can have. look simialr then check docs.
-    console.log("Movie added to database");
+    console.log(id, movieObj);
+    await eval(id).sync(); //sync creates the table if it doesn't exist.
+    await eval(id).create(movieObj); //VSC auto-suggest shows what you can have. look simialr then check docs.
+    console.log("Added to database");
   } catch (error) {
     console.log(error);
   }
 };
-
 //READ - SAME AS SELECT * FROM ..
 exports.listMovies = async (id) => {
   try {
-    const movieList = await [id].findAll(); //variable where funciton works
+    const movieList = await eval(id).findAll(); //variable where funciton works
     console.log("All Movies:", JSON.stringify(movieList, null, 2)); //logs variable and JSOn turns into string with only necassary info.
   } catch (error) {
     console.log(error);
@@ -32,7 +32,7 @@ exports.updateMovie = async (
   updateValue
 ) => {
   try {
-    await [id].update(
+    await eval(id).update(
       { [updateField]: updateValue },
       { where: { [filterField]: filterValue } }
     );
@@ -45,7 +45,7 @@ exports.updateMovie = async (
 //DELETE
 exports.deleteMovie = async (id, movieObj) => {
   try {
-    await [id].destroy({ where: { title: movieObj.title } });
+    await eval(id).destroy({ where: { title: movieObj.title } });
     console.log("Movie removed from database");
   } catch (error) {
     console.log(error);
