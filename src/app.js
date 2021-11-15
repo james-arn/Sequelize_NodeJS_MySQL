@@ -12,7 +12,7 @@ const App = () => {
   let movieYargs = { title: yargs.argv.title, rating: yargs.argv.rating };
   //identifier - movies or actor table
   if (identifier == "Actor") {
-    movieYargs = { actor: yargs.argv.actor };
+    movieYargs = { actor: yargs.argv.actor, rating: yargs.argv.rating };
   }
 
   //action statement on 3.

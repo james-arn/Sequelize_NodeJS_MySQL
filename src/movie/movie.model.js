@@ -40,4 +40,4 @@ const Actor = sequelize.define("Actor", {
 // Actor.belongsTo(Movie);
 
 //export for app.js file
-module.exports = Actor;
+module.exports = { Movie, Actor };
