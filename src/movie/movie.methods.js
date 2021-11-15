@@ -5,7 +5,7 @@ const { Movie, Actor } = require("./movie.model");
 //CREATE - SAME AS INSERT INTO
 exports.addMovie = async (id, movieObj) => {
   try {
-    console.log(id, movieObj);
+    // console.log(id, movieObj);
     await eval(id).sync(); //sync creates the table if it doesn't exist.
     await eval(id).create(movieObj); //VSC auto-suggest shows what you can have. look simialr then check docs.
     console.log("Added to database");
